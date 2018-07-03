@@ -1,0 +1,61 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            var socket = io.connect();
+
+            socket.on("newly_Connected", function (data) {
+                $("#wrapper").attr("class", data.color);
+            });
+
+            socket.on("selection", function (data) {
+                $("#colorBox").attr("class", data.color);
+            });
+
+            $("#teal").click(function () {
+                console.log("teal");
+                var color = { color: "teal" };
+                socket.emit("colorPicked", color);
+            });
+
+            $("#coral").click(function () {
+                console.log("coral");
+                var color = { color: "coral" };
+                socket.emit("colorPicked", color);
+            });
+
+            $("#lime").click(function () {
+                console.log("lime");
+                var color = { color: "lime" };
+                socket.emit("colorPicked", color);
+            });
+
+        });
+
+    </script>
+    <title>Colors</title>
+</head>
+
+<body>
+    <div id="colorBox" class="color">
+
+        <div>
+            <h1>Choose a Color!</h1>
+        </div>
+        <button class="colorButton teal " id="teal">teal</button>
+        <button class="colorButton coral " id="coral">coral</button>
+        <button class="colorButton lime " id="lime">lime</button>
+
+    </div>
+</body>
+
+</html>
